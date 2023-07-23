@@ -5,6 +5,6 @@ class Solution:
         heapq.heapify(nums)
         for i in range(len(nums)-k):
             minHeap.append(heapq.heappop(nums))
-        print(nums)
         return nums[0] 
+        
         
