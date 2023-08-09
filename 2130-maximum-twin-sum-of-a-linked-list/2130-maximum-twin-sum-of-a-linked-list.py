@@ -5,7 +5,13 @@
 #         self.next = next
 class Solution:
     def pairSum(self, head: Optional[ListNode]) -> int:
-        lst1 = head
+        temp = head
+        length = 0
+        while temp:
+            length += 1
+            temp = temp.next
+
+        lst1 = head # original list
         curr = head
         prev = None
         while curr:
@@ -13,35 +19,17 @@ class Solution:
             new_node.next = prev  
             prev = new_node
             curr = curr.next
-        lst2 = prev
-        
+        lst2 = prev # reversed list
         maxTwinSum = float('-inf')
+        count = 0
         while lst1:
+            if count == length/2:
+                break
             twinSum = lst1.val + lst2.val
             maxTwinSum = max(maxTwinSum, twinSum)
             lst1 = lst1.next
             lst2 = lst2.next
-        
+            count += 1
         return maxTwinSum
-# class Solution:
-#     def pairSum(self, head: Optional[ListNode]) -> int:
-#         lst1 = head
-#         curr = head
-#         prev = None
-#         while curr:
-#             new_node = ListNode(curr.val)
-#             new_node.next = prev  
-#             prev = new_node
-#             curr = curr.next
-#         lst2 = prev
-#         print(lst2)
-#         print(lst1 )
-#         maxTwinSum = float('-inf')
-#         while lst1:
-#             twinSum = lst1.val + lst2.val
-#             maxTwinSum = max(maxTwinSum,twinSum)
-#             lst1 = lst1.next
-#             lst2 = lst2.next
-#         return maxTwinSum
 
         
