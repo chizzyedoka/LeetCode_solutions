@@ -6,8 +6,7 @@
 #         self.right = right
 class Solution:
     def levelOrderBottom(self, root: Optional[TreeNode]) -> List[List[int]]:
-        miniResult = []
-        result = []
+        result = deque()
         if not root:
             return result
         q = deque()
@@ -22,8 +21,6 @@ class Solution:
                     q.append(currNode.left)
                 if currNode.right:
                     q.append(currNode.right)
-            miniResult.append(curLevel)
-        for _ in range(len(miniResult)):
-            result.append(miniResult.pop())
+            result.appendleft(curLevel)
         return result
             
