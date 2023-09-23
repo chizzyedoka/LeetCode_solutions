@@ -1,23 +1,52 @@
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
-        res = []
+        # sort the array
         nums.sort()
+        triplets = []
+        # loop through the array and for each iteration find two other elements with a sum of arr[i]
         for i in range(len(nums)):
-            if nums[i] > 0:
-                break
-            if i == 0 or nums[i - 1] != nums[i]:
-                self.twoSum(nums, i, res)
-        return res
+            left = i+1
+            right = len(nums)-1
+            while left < right:
+                current_sum = nums[left] + nums[right]
+                if current_sum == -nums[i]:
+                    ans = [nums[i],nums[left],nums[right]]
+                    if ans not in triplets:
+                        triplets.append(ans)
+                    left += 1
+                    right -=1
+                elif -nums[i] > current_sum:
+                    left += 1
+                else:
+                    right -= 1
+        return triplets
+    
+#     class Solution:
+#     def threeSum(self, nums: List[int]) -> List[List[int]]:
+#         # [-1,0,1,2,-1,-4] --> [-4, -1, -1, 0 , 1, 2]
+#         # i = 0
 
-    def twoSum(self, nums: List[int], i: int, res: List[List[int]]):
-        seen = set()
-        j = i + 1
-        while j < len(nums):
-            complement = -nums[i] - nums[j]
-            if complement in seen:
-                res.append([nums[i], nums[j], complement])
-                while j + 1 < len(nums) and nums[j] == nums[j + 1]:
-                    j += 1
-            seen.add(nums[j])
-            j += 1
+#                     # k = 1
+        
+#         result = []
+#         nums.sort()
+        
+        
+#         for i in range(len(nums)):
+#             j = len(nums) - 1
+#             k = i + 1
+#             while k < j:
+#                 sum_ = nums[i] + nums[j] + nums[k]
+#                 if sum_ == 0: 
+#                     ans = [nums[i], nums[j], nums[k]]
+#                     if ans not in result:
+#                         result.append(ans)
+#                     k += 1
+#                     j -= 1
+#                 elif sum_ < 0:
+#                     k += 1
+#                 elif sum_ > 0:
+#                     j -= 1
+#         return result
+                
         
