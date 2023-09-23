@@ -22,25 +22,31 @@ class Solution:
         # edge case
         if size == n:
             return head.next
+    
         
         # remove the node
-        curr = head
-        for i in range(index_to_remove):
-            curr = curr.next
-            print(curr)
-        curr.next = curr.next.next
-        return head
+        # curr = head
+        # for i in range(index_to_remove):
+        #     curr = curr.next
+        # curr.next = curr.next.next
+        # return head
         
-        
-        # count = 0
-        # dummy = ListNode()
-        # ptr = dummy
-        # while head:
-        #     if count != index_to_remove-1:
-        #         ptr.next = head
-        #         ptr = ptr.next
-        #         head = head.next
-        #     else:
-        #         head = head.next
-        #     count += 1
-        # return dummy.next
+        if n == 1:
+            curr =head
+            while curr.next.next:
+                curr = curr.next
+            curr.next = None
+            return head
+        count = 0
+        dummy = ListNode()
+        ptr = dummy
+        while head:
+            if count != index_to_remove+1:
+                ptr.next = head
+                ptr = ptr.next
+                head = head.next
+            else:
+                head = head.next
+                
+            count += 1
+        return dummy.next
