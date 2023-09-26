@@ -5,20 +5,25 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
-        res = []
-        def dfs(root):
-            if not root:
-                return []
-            res.append(root.val)
-            dfs(root.left)
-            dfs(root.right)
-        dfs(root)
-        return res
+    def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:    
+        result = []
+        if not root:
+            return
+        
+        nodeStack = []
+        nodeStack.append(root)
+        while len(nodeStack) > 0:
+            node = nodeStack.pop()
+            result.append(node.val)
             
-        #if root == None:
-         #   return []
-        #return [root.val] + self.preorderTraversal(root.left) + self.preorderTraversal(root.right)
+            if node.right:
+                nodeStack.append(node.right)
+            if node.left:
+                nodeStack.append(node.left)
+        return result
+#         if root == None:
+#             return []
+#         return [root.val] + self.preorderTraversal(root.left) + self.preorderTraversal(root.right)
             
             
             
