@@ -13,6 +13,5 @@ class Solution:
             dfs(root.left)
             output.append(root.val)
             dfs(root.right)
-            return output
         dfs(root)
         return output[k-1]
