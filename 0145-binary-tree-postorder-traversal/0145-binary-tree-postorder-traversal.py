@@ -31,13 +31,13 @@ class Solution(object):
         stack, output = [root, ], []
         while stack:
             root = stack.pop()
-            output.append(root.val)
+            output.insert(0,root.val)
             if root.left is not None:
                 stack.append(root.left)
             if root.right is not None:
                 stack.append(root.right)
                 
-        return output[::-1]
+        return output
 
             
             
