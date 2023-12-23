@@ -7,6 +7,7 @@ class Solution:
             if start >= prevEnd:
                 prevEnd = end
             else:
-                count += 1
+                count+=1
                 prevEnd = min(end,prevEnd)
         return count
+                
