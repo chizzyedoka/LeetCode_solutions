@@ -51,8 +51,8 @@ class Solution:
             return
 
         # get to the middle of the LL
-        slow, fast = head, head.next
-        while fast and fast.next:
+        slow, fast = head, head
+        while fast.next and fast.next.next:
             slow = slow.next
             fast = fast.next.next
 
@@ -63,12 +63,10 @@ class Solution:
         # rearrange to produce LL in the required order
         head_first_half = head
         while head_second_half:
-            temp1 = head_first_half.next
-            temp2 = head_second_half.next
+            temp1, temp2 = head_first_half.next, head_second_half.next
             head_first_half.next = head_second_half
             head_second_half.next = temp1
-            head_first_half = temp1
-            head_second_half = temp2
+            head_first_half, head_second_half = temp1, temp2
 
          
         
