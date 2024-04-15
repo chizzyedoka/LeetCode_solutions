@@ -6,5 +6,6 @@ class Solution:
             if i+1 not in arr_set:
                 missing.append(i+1)
             if len(missing) == k:
-                return missing[k-1]
+                break
+        return missing[k-1]
             
