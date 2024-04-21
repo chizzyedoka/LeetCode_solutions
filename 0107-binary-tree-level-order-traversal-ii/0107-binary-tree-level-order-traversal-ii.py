@@ -6,21 +6,88 @@
 #         self.right = right
 class Solution:
     def levelOrderBottom(self, root: Optional[TreeNode]) -> List[List[int]]:
-        result = deque()
         if not root:
-            return result
+            return 
+        res = deque()
         q = deque()
         q.append(root)
         while q:
-            curLevel = []
-            levelSize = len(q)
-            for _ in range(levelSize):
-                currNode = q.popleft()
-                curLevel.append(currNode.val)
-                if currNode.left:
-                    q.append(currNode.left)
-                if currNode.right:
-                    q.append(currNode.right)
-            result.appendleft(curLevel)
-        return result
+            level = []
+            level_size = len(q)
+            for _ in range(level_size):
+                node = q.popleft()
+                level.append(node.val)
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+            res.appendleft(level)
+        return res
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        # result = deque()
+        # if not root:
+        #     return result
+        # q = deque()
+        # q.append(root)
+        # while q:
+        #     curLevel = []
+        #     levelSize = len(q)
+        #     for _ in range(levelSize):
+        #         currNode = q.popleft()
+        #         curLevel.append(currNode.val)
+        #         if currNode.left:
+        #             q.append(currNode.left)
+        #         if currNode.right:
+        #             q.append(currNode.right)
+        #     result.appendleft(curLevel)
+        # return result
             
