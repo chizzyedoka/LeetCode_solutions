@@ -13,7 +13,6 @@ class Solution:
         res = 1
         while stack:
             node,depth = stack.pop()
-            #if node:
             res = max(depth,res)
             if node.right:
                 stack.append((node.right,depth+1))
