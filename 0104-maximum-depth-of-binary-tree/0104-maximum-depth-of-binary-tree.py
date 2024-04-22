@@ -5,22 +5,38 @@
 #         self.left = left
 #         self.right = right
 class Solution:
+    # dfs iterative solution
     def maxDepth(self, root: Optional[TreeNode]) -> int:
-        count = 0
         if not root:
-            return count
-        q = deque()
-        q.append(root)
-        while q:
-            level_size = len(q)
-            count += 1
-            for _ in range(level_size):
-                node = q.popleft()
-                if node.left:
-                    q.append(node.left)
-                if node.right:
-                    q.append(node.right)
-        return count
+            return 0
+        stack = [(root,1)]
+        res = 1
+        while stack:
+            node,depth = stack.pop()
+            if node:
+                res = max(depth,res)    
+                stack.append((node.right,depth+1))
+                stack.append((node.left,depth+1))
+        return res
+    
+    
+    # bfs iterative solution
+#     def maxDepth(self, root: Optional[TreeNode]) -> int:
+#         count = 0
+#         if not root:
+#             return count
+#         q = deque()
+#         q.append(root)
+#         while q:
+#             level_size = len(q)
+#             count += 1
+#             for _ in range(level_size):
+#                 node = q.popleft()
+#                 if node.left:
+#                     q.append(node.left)
+#                 if node.right:
+#                     q.append(node.right)
+#         return count
             
         
     # def maxDepth(self, root: Optional[TreeNode]) -> int:
