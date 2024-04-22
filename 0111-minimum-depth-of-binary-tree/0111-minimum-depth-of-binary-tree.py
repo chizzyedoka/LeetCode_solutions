@@ -18,8 +18,9 @@ class Solution:
                 node = q.popleft()
                 if not node.left and not node.right:
                     return count
-                if node.left:
-                    q.append(node.left)
                 if node.right:
                     q.append(node.right)
+                if node.left:
+                    q.append(node.left)
+                
         
