@@ -5,42 +5,36 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
-        if not root:
-            return
-        stack = [root]
-        res = []
-        while stack:
-            root = stack.pop()
-            res.append(root.val)
-            if root.right:
-                stack.append(root.right)
-            if root.left:
-                stack.append(root.left)
-        return res
-            
-        
-       
-        
-        
-        
-        
+    # iterative solution
+#     def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
 #         if not root:
-#             return []
-#         result = []
+#             return
 #         stack = [root]
+#         res = []
 #         while stack:
-#             node = stack.pop()
-#             result.append(node.val)
-#             if node.right:
-#                 stack.append(node.right)
-#             if node.left:
-#                 stack.append(node.left)
-#         return result
-#         if root == None:
-#             return []
-#         return [root.val] + self.preorderTraversal(root.left) + self.preorderTraversal(root.right)
-                 
+#             root = stack.pop()
+#             res.append(root.val)
+#             if root.right:
+#                 stack.append(root.right)
+#             if root.left:
+#                 stack.append(root.left)
+#         return res
+
+    # recursive solution
+    def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        res = []
+        def preorder(root, res):
+            if not root:
+                return
+            res.append(root.val)
+            preorder(root.left,res)
+            preorder(root.right,res)
+        preorder(root,res)
+        return res
+        
+        
+        
+
 
             
             
