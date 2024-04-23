@@ -1,21 +1,21 @@
-# # Definition for a binary tree node.
-# # class TreeNode:
-# #     def __init__(self, val=0, left=None, right=None):
-# #         self.val = val
-# #         self.left = left
-# #         self.right = right
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 
         
-#         # recursive solution
-#         # result = []
-#         # def postorder(root):
-#         #     if not root:
-#         #         return
-#         #     postorder(root.left)
-#         #     postorder(root.right)
-#         #     result.append(root.val)
-#         # postorder(root)
-#         # return result
+        # recursive solution
+        # result = []
+        # def postorder(root):
+        #     if not root:
+        #         return
+        #     postorder(root.left)
+        #     postorder(root.right)
+        #     result.append(root.val)
+        # postorder(root)
+        # return result
         
 #         # recursive solution
 #         # if root: #root is not null
@@ -25,19 +25,19 @@
 
 class Solution(object):
     def postorderTraversal(self, root: TreeNode) -> List[int]:
-        if root is None:
+        if not root:
             return []
-
-        stack, output = [root, ], []
+        stack = [root]
+        res = []
         while stack:
-            root = stack.pop()
-            output.insert(0,root.val)
-            if root.left is not None:
-                stack.append(root.left)
-            if root.right is not None:
-                stack.append(root.right)
-                
-        return output
+            node = stack.pop()
+            res.insert(0,node.val)
+            if node.left:
+                stack.append(node.left)
+            if node.right:
+                stack.append(node.right)
+        return res
+        
 
             
             
