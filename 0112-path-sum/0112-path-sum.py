@@ -10,37 +10,42 @@
 
 class Solution:
     def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
-        def dfs(node, _sum):
-            if not node:
-                return False
-            
-            if not node.left and not node.right:
-                return _sum == node.val
-            
-            left_path = dfs(node.left, _sum - node.val)
-            right_path = dfs(node.right, _sum - node.val)
-            
-            return left_path or right_path
-        
         if not root:
             return False
+        
+        def dfs(node, current_sum):
+            if not node:  # If the node is None, return False
+                return False
+            
+            current_sum -= node.val  # Subtract the node's value from the current sum
+            
+            if not node.left and not node.right:  # Check if it's a leaf node
+                return current_sum == 0  # If the current sum is 0, return True
+            
+            # Recur for left and right subtrees
+            return dfs(node.left, current_sum) or dfs(node.right, current_sum)
         
         return dfs(root, targetSum)
 
 #     def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
+#         def dfs(node, _sum):
+#             if not node:
+#                 return False
+            
+#             if not node.left and not node.right:
+#                 return _sum == node.val
+            
+#             left_path = dfs(node.left, _sum - node.val)
+#             right_path = dfs(node.right, _sum - node.val)
+            
+#             return left_path or right_path
+        
 #         if not root:
 #             return False
         
-#         def dfs(root, _sum):
-#             if not root:
-#                 return False
-#             _sum -= root.val 
-#             if root.val and not root.left and not root.right:
-#                 return 0== _sum
-            
-#             return dfs(root.left, _sum) or dfs(root.right, _sum)
 #         return dfs(root, targetSum)
-            
+
+
         
         
         
