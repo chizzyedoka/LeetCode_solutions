@@ -4,25 +4,82 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+
+
+
+
 class Solution:
-     def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
-            if not root:
+    def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
+        def dfs(node, _sum):
+            if not node:
                 return False
-            stack = [root]
-            sum_stack = [root.val]
-            _sum = 0
-            while stack:
-                node = stack.pop()
-                _sum = sum_stack.pop()
-                if _sum == targetSum and not node.right and not node.left:
-                    return True
-                if node.right:
-                    stack.append(node.right)
-                    sum_stack.append(node.right.val + _sum)
-                if node.left:
-                    stack.append(node.left)
-                    sum_stack.append(node.left.val + _sum)
+            
+            if not node.left and not node.right:
+                return _sum == node.val
+            
+            left_path = dfs(node.left, _sum - node.val)
+            right_path = dfs(node.right, _sum - node.val)
+            
+            return left_path or right_path
+        
+        if not root:
             return False
+        
+        return dfs(root, targetSum)
+
+#     def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
+#         if not root:
+#             return False
+        
+#         def dfs(root, _sum):
+#             if not root:
+#                 return False
+#             _sum -= root.val 
+#             if root.val and not root.left and not root.right:
+#                 return 0== _sum
+            
+#             return dfs(root.left, _sum) or dfs(root.right, _sum)
+#         return dfs(root, targetSum)
+            
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+     # def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
+     #        if not root:
+     #            return False
+     #        stack = [root]
+     #        sum_stack = [root.val]
+     #        while stack:
+     #            node = stack.pop()
+     #            _sum = sum_stack.pop()
+     #            if _sum == targetSum and not node.right and not node.left:
+     #                return True
+     #            if node.right:
+     #                stack.append(node.right)
+     #                sum_stack.append(node.right.val + _sum)
+     #            if node.left:
+     #                stack.append(node.left)
+     #                sum_stack.append(node.left.val + _sum)
+     #        return False
             
             
             
