@@ -27,6 +27,7 @@ class Solution:
         
         return dfs(root, targetSum)
 
+    
 #     def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
 #         def dfs(node, _sum):
 #             if not node:
@@ -44,29 +45,6 @@ class Solution:
 #             return False
         
 #         return dfs(root, targetSum)
-
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
      # def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
      #        if not root:
