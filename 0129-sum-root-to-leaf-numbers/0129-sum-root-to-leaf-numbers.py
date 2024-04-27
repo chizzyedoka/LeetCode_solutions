@@ -5,18 +5,29 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    #  # recursive solution
-    # def sumNumbers(self, root: Optional[TreeNode]) -> int:
-    #     def dfs(node, path_sum):
-    #         if not node:
+     # recursive solution
+    def sumNumbers(self, root: Optional[TreeNode]) -> int:
+        def dfs(node, path_sum):
+            if not node:
+                return 0
+            path_sum = path_sum*10 + node.val 
+            if not node.left and not node.right:
+                return path_sum
+            left_sum = dfs(node.left,path_sum)
+            right_sum = dfs(node.right,path_sum)
+            return left_sum + right_sum
+        return dfs(root,0)
+    #def sumNumbers(self, root: Optional[TreeNode]) -> int:
+    #     def dfs(root, cur_sum):
+    #         if not root:
     #             return 0
-    #         path_sum = 10*path_sum + node.val 
-    #         if not node.left and not node.right:
-    #             return path_sum
-    #         left_sum = dfs(root.left,path_sum)
-    #         right_sum = dfs(root.right,path_sum)
+    #         cur_sum = cur_sum*10 + root.val
+    #         if not root.left and not root.right:
+    #             return cur_sum
+    #         left_sum = dfs(root.left, cur_sum)
+    #         right_sum = dfs(root.right, cur_sum)
     #         return left_sum + right_sum
-    #     return dfs(root,0)
+    #     return dfs(root, 0)
     # iterative solution
     # def sumNumbers(self, root: Optional[TreeNode]) -> int:
     #     stack = [root]
@@ -37,15 +48,5 @@ class Solution:
     #     return total
                 
             
-    def sumNumbers(self, root: Optional[TreeNode]) -> int:
-        def dfs(root, cur_sum):
-            if not root:
-                return 0
-            cur_sum = cur_sum*10 + root.val
-            if not root.left and not root.right:
-                return cur_sum
-            left_sum = dfs(root.left, cur_sum)
-            right_sum = dfs(root.right, cur_sum)
-            return left_sum + right_sum
-        return dfs(root, 0)
+    # 
         
