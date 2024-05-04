@@ -5,19 +5,26 @@ class Solution:
         res = []
         maxHeap = []
         
-        for i in range(len(nums)):
+        for i in range(len(nums)): #O(n)
             if nums[i] not in hashMap:
                 hashMap[nums[i]] = 0
             hashMap[nums[i]] += 1
-        
-        for (key,v) in hashMap.items():
-            heapq.heappush(maxHeap,(-v,key))
             
-        print(hashMap,k)
-        
+        for i in hashMap.keys():
+            heapq.heappush(maxHeap,(hashMap[i], i))
+            if len(maxHeap) == k+1:
+                heapq.heappop(maxHeap)
+               
         while k>0:
             res.append(heapq.heappop(maxHeap)[1])
-            k-=1   
+            k-=1
+        
+#         for (key,v) in hashMap.items(): #O(n)
+#             heapq.heappush(maxHeap,(-v,key))
+        
+#         while k>0:
+#             res.append(heapq.heappop(maxHeap)[1])
+#             k-=1   
         return res
         
         
