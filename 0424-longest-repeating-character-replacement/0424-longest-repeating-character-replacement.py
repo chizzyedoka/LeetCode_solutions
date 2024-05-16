@@ -7,7 +7,6 @@ class Solution:
             if char not in hashmap:
                 hashmap[char] = 0
             hashmap[char] += 1
-            #longest_same = max(longest_same, hashmap[char])
             while (window_end - window_start + 1 - max(hashmap.values())) > k:
                 left_char = s[window_start]
                 hashmap[left_char] -= 1
