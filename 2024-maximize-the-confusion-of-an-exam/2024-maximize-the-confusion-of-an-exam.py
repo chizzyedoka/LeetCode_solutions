@@ -1,12 +1,14 @@
 class Solution:
-    def maxConsecutiveAnswers(self, s: str, k: int) -> int:
-        maxf = res = 0
-        count = collections.Counter()
-        for i in range(len(s)):
-            count[s[i]] += 1
-            maxf = max(maxf, count[s[i]])
-            if res - maxf < k:
-                res += 1
-            else:
-                count[s[i - res]] -= 1
+    def maxConsecutiveAnswers(self, answerKey: str, k: int) -> int:
+        answer_map = {'T':0, 'F':0}
+        window_start = 0
+        res = 0
+        for window_end in range(len(answerKey)):
+            char = answerKey[window_end]
+            answer_map[char] += 1
+            max_freq = max(answer_map.values())
+            while window_end-window_start+1 > k+max_freq:
+                answer_map[answerKey[window_start]] -= 1
+                window_start+=1 
+            res = max(res, window_end-window_start+1)
         return res
