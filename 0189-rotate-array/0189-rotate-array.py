@@ -3,18 +3,13 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        k = k % len(nums)
-        l, r = 0, len(nums) - 1
-        while l < r:
-            nums[l], nums[r] = nums[r], nums[l]
-            l, r = l + 1, r - 1
-            
-        l, r = 0, k - 1
-        while l < r:
-            nums[l], nums[r] = nums[r], nums[l]
-            l, r = l + 1, r - 1
-            
-        l, r = k, len(nums) - 1
-        while l < r:
-            nums[l], nums[r] = nums[r], nums[l]
-            l, r = l + 1, r -1
+        n = len(nums)
+        k = k % n
+        def helper_reverse(arr,left, right):
+            while left < right:
+                arr[left], arr[right] = arr[right], arr[left]
+                left += 1
+                right -= 1
+        helper_reverse(nums, 0, n-1)
+        helper_reverse(nums, 0,k-1)
+        helper_reverse(nums,k, n-1)
