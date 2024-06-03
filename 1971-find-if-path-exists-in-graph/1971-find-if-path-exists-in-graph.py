@@ -1,10 +1,18 @@
 class Solution:
     def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
         # Initialize the graph
-        graph = defaultdict(set)
-        for node1, node2 in edges:
-            graph[node1].add(node2)
-            graph[node2].add(node1)
+        # graph = defaultdict(set)
+        # for node1, node2 in edges:
+        #     graph[node1].add(node2)
+        #     graph[node2].add(node1)
+        graph = {}
+        for u,v in edges:
+            if u not in graph:
+                graph[u] = set()
+            if v not in graph:
+                graph[v] = set()
+            graph[u].add(v)
+            graph[v].add(u)
             
         visited = set()
         stack = [source]
