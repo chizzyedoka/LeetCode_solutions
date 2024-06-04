@@ -1,9 +1,16 @@
 class Solution:
     def countNegatives(self, grid: List[List[int]]) -> int:
-        r, c = len(grid), len(grid[0])
         count = 0
-        for i in range(r):
-            for j in range(c):
-                if grid[i][j] < 0:
-                    count += 1
+        def binary_search(row):
+            left, right =  0, len(row)-1
+            while left <= right:
+                mid = (left+right)//2
+                if row[mid] < 0:
+                    right = mid - 1
+                else:
+                    left = mid + 1
+            return len(row)-left
+        for row in grid:
+            count += binary_search(row)
         return count
+                    
