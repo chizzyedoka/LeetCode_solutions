@@ -10,14 +10,26 @@
 #                 subsets.append(myset)
 #         return subsets
 
+# class Solution:
+#     def subsets(self, nums: List[int]) -> List[List[int]]:
+#         res = [[]]  # Start with the empty subset
+        
+#         for num in nums:
+#             new_subsets = []
+#             for subset in res:
+#                 new_subsets.append(subset + [num])  # Add current num to each subset
+#             res += new_subsets  # Add the new subsets to the result list
+        
+#         return res
+    
+# backtracking    
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
-        res = [[]]  # Start with the empty subset
-        
-        for num in nums:
-            new_subsets = []
-            for subset in res:
-                new_subsets.append(subset + [num])  # Add current num to each subset
-            res += new_subsets  # Add the new subsets to the result list
-        
+        def backtrack(start, path):
+            res.append(path)
+            for i in range(start, len(nums)):
+                backtrack(i + 1, path + [nums[i]])
+        res = []
+        backtrack(0, [])
         return res
+
