@@ -1,35 +1,31 @@
-# class Solution:
-#     def subsets(self, nums: List[int]) -> List[List[int]]:
-#         subsets = []
-#         subsets.append([])
-#         for char in nums:
-#             n = len(subsets)
-#             for i in range(n):
-#                 myset = list(subsets[i])
-#                 myset.append(char)
-#                 subsets.append(myset)
-#         return subsets
-
-# class Solution:
-#     def subsets(self, nums: List[int]) -> List[List[int]]:
-#         res = [[]]  # Start with the empty subset
-        
-#         for num in nums:
-#             new_subsets = []
-#             for subset in res:
-#                 new_subsets.append(subset + [num])  # Add current num to each subset
-#             res += new_subsets  # Add the new subsets to the result list
-        
-#         return res
-    
-# backtracking    
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
-        def backtrack(start, path):
-            res.append(path)
-            for i in range(start, len(nums)):
-                backtrack(i + 1, path + [nums[i]])
-        res = []
-        backtrack(0, [])
+        res, sol = [], []
+        n = len(nums) 
+        def backtrack(i):
+            if i == n:
+                res.append(sol[:])
+                return
+            
+            # don't pick nums[i]
+            backtrack(i+1)
+            
+            # pick nums[i]
+            sol.append(nums[i])
+            backtrack(i+1)
+            sol.pop()
+            
+        backtrack(0)
         return res
+    
+# backtracking    
+# class Solution:
+#     def subsets(self, nums: List[int]) -> List[List[int]]:
+#         def backtrack(start, path):
+#             res.append(path)
+#             for i in range(start, len(nums)):
+#                 backtrack(i + 1, path + [nums[i]])
+#         res = []
+#         backtrack(0, [])
+#         return res
 
