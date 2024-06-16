@@ -13,11 +13,11 @@ class Solution:
             path.append(str(root.val))
             if not root.left and not root.right:
                 res.append("->".join(path))
-            else:
-                if root.left:
-                    dfs(root.left, path)
-                if root.right:
-                    dfs(root.right, path)
+        
+            if root.left:
+                dfs(root.left, path)
+            if root.right:
+                dfs(root.right, path)
             path.pop()
             
         dfs(root, [])
