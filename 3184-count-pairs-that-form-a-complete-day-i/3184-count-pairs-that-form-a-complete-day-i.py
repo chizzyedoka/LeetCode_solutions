@@ -1,8 +1,22 @@
 class Solution:
     def countCompleteDayPairs(self, hours: List[int]) -> int:
+        from collections import defaultdict
+        remainder_count = defaultdict(int)
         count = 0
-        for i in range(len(hours)):
-            for j in range(i+1, len(hours)):
-                if (hours[i] + hours[j]) % 24 == 0:
-                    count += 1
+        for h in hours:
+            remainder = h%24
+            if remainder == 0:
+                count += remainder_count[0]
+            else:
+                count += remainder_count[24-remainder]
+            remainder_count[remainder] += 1
         return count
+           
+    
+    # def countCompleteDayPairs(self, hours: List[int]) -> int:
+    #     count = 0
+    #     for i in range(len(hours)):
+    #         for j in range(i+1, len(hours)):
+    #             if (hours[i] + hours[j]) % 24 == 0:
+    #                 count += 1
+    #     return count
