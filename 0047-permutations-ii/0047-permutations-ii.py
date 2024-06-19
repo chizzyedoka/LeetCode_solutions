@@ -1,7 +1,7 @@
 class Solution:
     def permuteUnique(self, nums: List[int]) -> List[List[int]]:
         res, sol = [], []
-        nums.sort()
+    
         def backtrack(counter):
             if len(sol)==len(nums):
                 res.append(sol[:])
