@@ -1,22 +1,36 @@
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
-        res, sol = [], []
-        n = len(nums) 
-        def backtrack(i):
-            if i == n:
-                res.append(sol[:])
-                return
-            
-            # don't pick nums[i]
-            backtrack(i+1)
-            
-            # pick nums[i]
-            sol.append(nums[i])
-            backtrack(i+1)
-            sol.pop()
-            
-        backtrack(0)
+        res = []
+        def backtrack(start, sol):
+            res.append(sol[:])
+            # pick
+            for i in range(start,len(nums)):
+                sol.append(nums[i])
+                backtrack(i+1, sol)
+                sol.pop()
+                
+        backtrack(0, [])
         return res
+    
+#     def subsets(self, nums: List[int]) -> List[List[int]]:
+#         res, sol = [], []
+#         n = len(nums) 
+#         def backtrack(i):
+#             if i == n:
+#                 res.append(sol[:])
+#                 return
+            
+#             # don't pick nums[i]
+#             backtrack(i+1)
+            
+#             # pick nums[i]
+#             sol.append(nums[i])
+#             backtrack(i+1)
+#             sol.pop()
+            
+#         backtrack(0)
+#         return res
+
     
 # backtracking    
 # class Solution:
