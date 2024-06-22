@@ -7,7 +7,7 @@ class Solution:
         for i, t in enumerate(temps):
             while stack and t > stack[-1][1]:
                 index, temp = stack.pop()
-                ans[index] = i-index
+                ans[index] = i - index
             stack.append((i,t))
         return ans
             
