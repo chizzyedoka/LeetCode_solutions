@@ -1,18 +1,21 @@
 class Solution:
-            
     def calPoints(self, operations: List[str]) -> int:
         stack = []
-        for operand in operations:
-            if operand.lstrip('-').isdigit():
-                stack.append(int(operand))
-            elif operand == '+':
-                prev = stack[-1]
-                pprev = stack[-2]
-                stack.append(prev+pprev)
-            elif operand == 'D':
-                temp = stack[-1]
-                stack.append(temp*2)
-            elif operand == 'C':
+        for val in operations:
+            if val != "C" and val != "D" and val != "+":
+                stack.append(val)
+            elif val == "C":
                 stack.pop()
-            print(stack)
-        return sum(stack)
+            elif val == "D":
+                new_val = int(stack[-1]) * 2
+                stack.append(new_val)
+            elif val == "+":
+                stack.append( int(stack[-1])+ int(stack[-2]) )
+        print(stack)
+        ans = 0
+        if len(stack) == 0:
+            return ans
+        for val in stack:
+            ans += int(val)
+        return ans
+            
