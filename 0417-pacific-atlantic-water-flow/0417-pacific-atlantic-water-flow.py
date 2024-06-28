@@ -27,8 +27,9 @@ class Solution:
         def get_coords(q,seen):
             while q:
                 (i,j) = q.popleft()
-                for (i_off,j_off) in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
-                    r,c = i+i_off, j+j_off
+                # for (i_off,j_off) in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+                #     r,c = i+i_off, j+j_off
+                for (r,c) in [(i+1,j), (i-1,j), (i,j+1), (i, j-1)]:
                     row_inbounds = 0 <= r < rows
                     col_inbounds = 0 <= c < cols
                     if row_inbounds and col_inbounds and heights[r][c] >= heights[i][j] and (r,c) not in seen:
