@@ -1,14 +1,12 @@
-
 class Solution:
     def finalPrices(self, prices: List[int]) -> List[int]:
-        stack, discount, l =[], [0]*len(prices), len(prices)
-
-        for i in range(l):
-            while stack and prices[i] <= prices[stack[-1]]:
-                discount[stack.pop()] = prices[i]
+        # next smaller --> monotonic increasing
+        stack = []
+        res = prices
+        for i in range(len(prices)):
+            p = prices[i]
+            while stack and prices[stack[-1]] >= p:
+                pos = stack.pop()
+                res[pos] = prices[pos] - p
             stack.append(i)
-        ans = []
-        for i in range(l):
-            ans.append(prices[i]-discount[i])
-        
-        return ans
+        return res
