@@ -15,14 +15,14 @@ class Solution:
         order = []
         while q:
             level_size = len(q)
-            #for _ in range(level_size):
-            node = q.popleft()
-            order.append(node.val)
-            if node.val >= low and node.val <= high:
-                _sum += node.val
-            if node.left:
-                q.append(node.left)
-            if node.right:
-                q.append(node.right)
+            for _ in range(level_size):
+                node = q.popleft()
+                order.append(node.val)
+                if node.val >= low and node.val <= high:
+                    _sum += node.val
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
         print(order)
         return _sum
