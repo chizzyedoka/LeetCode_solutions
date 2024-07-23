@@ -7,20 +7,24 @@
 class Solution:
     # DFS approach
     def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
-
+        self.total = 0
+        
         def dfs(node):
             if not node:
                 return 0
-            total = 0
+    
             if low <= node.val <= high:
-                total += node.val
-            if node.left and node.val > low:
-                total += dfs(node.left)
-            if node.right and node.val < high:
-                total += dfs(node.right)
-            return total
+                self.total += node.val
                 
-        return dfs(root)
+            if node.left and node.val > low:
+                dfs(node.left)
+                
+            if node.right and node.val < high:
+                dfs(node.right)
+        
+                
+        dfs(root)
+        return self.total
         
     
     
