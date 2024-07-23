@@ -5,14 +5,24 @@
 #         self.left = left
 #         self.right = right
 class Solution:
+    from collections import deque
     def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
-        def dfs(node):
-            if not node:
-                return 0
-            if low > node.val:
-                return dfs(node.right)
-            elif high < node.val:
-                return dfs(node.left)
-            else:
-                return node.val + dfs(node.left) + dfs(node.right)
-        return dfs(root)
+        if not root:
+            return 0
+        q = deque()
+        q.append(root)
+        _sum = 0
+        order = []
+        while q:
+            level_size = len(q)
+            #for _ in range(level_size):
+            node = q.popleft()
+            order.append(node.val)
+            if node.val >= low and node.val <= high:
+                _sum += node.val
+            if node.left:
+                q.append(node.left)
+            if node.right:
+                q.append(node.right)
+        print(order)
+        return _sum
