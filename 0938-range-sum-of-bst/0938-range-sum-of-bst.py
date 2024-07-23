@@ -18,8 +18,8 @@ class Solution:
                 node = q.popleft()
                 if low <= node.val <= high:
                     _sum += node.val
-                if node.left:
+                if node.left and node.val > low:
                     q.append(node.left)
-                if node.right:
+                if node.right and node.val < high:
                     q.append(node.right)
         return _sum
