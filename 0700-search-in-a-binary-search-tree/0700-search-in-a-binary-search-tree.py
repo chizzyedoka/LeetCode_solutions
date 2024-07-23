@@ -13,10 +13,10 @@ class Solution:
             if node.val == val:
                 return node
             
-            if node.left and node.val > val:
+            if node.val > val:
                 return dfs(node.left)
                 
-            if node.right and node.val < val:
+            if node.val < val:
                 return dfs(node.right)
         
         return dfs(root)
