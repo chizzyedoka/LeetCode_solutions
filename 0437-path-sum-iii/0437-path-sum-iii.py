@@ -23,15 +23,14 @@
                 
 class Solution:
     def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int:
-        path_count = 0
+        self.path_count = 0
 
         def dfs(node, curSum):
-            nonlocal path_count
             if not node:
                 return
             curSum += node.val
             if curSum == targetSum:
-                path_count += 1
+                self.path_count += 1
             dfs(node.left, curSum)
             dfs(node.right, curSum)
         
@@ -43,4 +42,4 @@ class Solution:
             traverse(node.right)
 
         traverse(root)
-        return path_count
+        return self.path_count
