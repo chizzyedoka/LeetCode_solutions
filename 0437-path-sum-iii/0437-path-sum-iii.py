@@ -4,20 +4,43 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+# class Solution:
+#     def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int:
+#         path_count = 0
+#         def dfs(node, curSum):
+#             if not node:
+#                 return
+#             curSum += node.val
+#             if curSum == targetSum:
+#                 path_count += 1
+#                 return
+#             if curSum > targetSum:
+#                 curSum -= node.val
+#             dfs(node.left, curSum)
+#             dfs(node.right, curSum)
+#         dfs(root, 0)
+#         return pathCount
+                
 class Solution:
     def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int:
-        def dfs(node, targetSum, path):
+        path_count = 0
+
+        def dfs(node, curSum):
+            nonlocal path_count
             if not node:
-                return 0
-            path.append(node.val)
-            path_count, path_sum = 0,0
-            for i in range(len(path)-1,-1,-1):
-                path_sum += path[i]
-                if path_sum == targetSum:
-                    path_count += 1
-            path_count += dfs(node.left, targetSum, path)
-            path_count += dfs(node.right, targetSum, path)
-            path.pop()
-            return path_count
-        return dfs(root, targetSum, [])
+                return
+            curSum += node.val
+            if curSum == targetSum:
+                path_count += 1
+            dfs(node.left, curSum)
+            dfs(node.right, curSum)
         
+        def traverse(node):
+            if not node:
+                return
+            dfs(node, 0)
+            traverse(node.left)
+            traverse(node.right)
+
+        traverse(root)
+        return path_count
