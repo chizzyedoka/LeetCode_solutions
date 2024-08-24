@@ -20,19 +20,19 @@ class UnionFind:
             else:
                 self.parent[rootY] = rootX
                 self.rank[rootX] += 1
-                
+
     def connected(self, x, y):
         return self.find(x) == self.find(y)
     
 class Solution:
     def findCircleNum(self, isConnected: List[List[int]]) -> int:
         n = len(isConnected)
+        provinces = n
         uf = UnionFind(n)
         for i in range(n):
             for j in range(i+1, n):
                 if isConnected[i][j] == 1:
                     uf.union(i, j)
-                    
         provinces = len(set(uf.find(i) for i in range(n)))
         return provinces
         
