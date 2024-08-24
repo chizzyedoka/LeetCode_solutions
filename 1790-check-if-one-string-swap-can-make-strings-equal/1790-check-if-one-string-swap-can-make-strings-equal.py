@@ -10,3 +10,4 @@ class Solution:
         if len(differences) == 2:
             i, j = differences
             return s1[i] == s2[j] and s1[j] == s2[i]
+        return False
