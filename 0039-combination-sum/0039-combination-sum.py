@@ -2,7 +2,7 @@ class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         sol, res = [], []
         n = len(candidates)
-        candidates.sort()
+        
 
         def backtrack(start, curSum):
             if curSum == target:
