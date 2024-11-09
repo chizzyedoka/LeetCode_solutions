@@ -20,6 +20,19 @@ class Solution:
                     seen.add(j)
             res.append(anagramsOfWord)
         return res
+    
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        anagrams = defaultdict(list)
+
+        for word in strs:
+            # Sort the word and use it as the key
+            sorted_word = tuple(sorted(word))
+            anagrams[sorted_word].append(word)
+
+        print(anagrams)
+        # Return the groups of anagrams
+        return list(anagrams.values())
 
 
 
