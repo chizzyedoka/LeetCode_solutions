@@ -1,23 +1,28 @@
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        map = {}
-        for word in strs:
-            count = [0] * 26
-            for char in word:
-                count[ord(char) - ord('a')] += 1
-            count_tuple = tuple(count)
-            if count_tuple not in map:
-                map[count_tuple] = []
-            map[count_tuple].append(word)
-        return map.values()
+        def isAnagram(s, t):
+            if len(s) != len(t):
+                return False
+            return sorted(s) == sorted(t)
 
-    # def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-    #     map = {}
-    #     for word in strs:
-    #         if tuple(sorted(word)) not in map:
-    #             map[tuple(sorted(word))] = []
-    #         map[tuple(sorted(word))].append(word)
-    #     return map.values()
+        res = []
+        seen = set()
+
+        for i in range(len(strs)):
+            if i in seen:
+                continue
+            word1 = strs[i]
+            anagramsOfWord = [word1]
+            for j in range(i+1, len(strs)):
+                word2 = strs[j]
+                if isAnagram(word1, word2) and j not in seen:
+                    anagramsOfWord.append(word2)
+                    seen.add(j)
+            res.append(anagramsOfWord)
+        return res
+
+
+
             
             
 
