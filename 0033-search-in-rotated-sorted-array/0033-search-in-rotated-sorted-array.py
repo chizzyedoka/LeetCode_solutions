@@ -1,6 +1,6 @@
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
-        def getPivot(nums): # largets element in array
+        def getPivot(nums): # smallest element in array
             l, r = 0, len(nums)-1
             while l < r:
                 mid = (l + r) // 2
