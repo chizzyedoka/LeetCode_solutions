@@ -12,34 +12,17 @@ class RandomizedSet:
         return False
         
 
-    # def remove(self, val: int) -> bool:
-    #     if val not in self.itemsDict:
-    #         return False
-    #     lastElement = self.itemsList[-1]
-    #     indexToRemove = self.itemsDict[val]
-    #     # swap lastElement and value we want to remove
-    #     self.itemsList[indexToRemove], self.itemsList[-1] = lastElement, self.itemsList[indexToRemove]
-    #     self.itemsList.pop()
-    #     del self.itemsDict[val]
-    #     self.itemsDict[lastElement] = indexToRemove
-    #     return True
     def remove(self, val: int) -> bool:
         if val not in self.itemsDict:
             return False
-
         lastElement = self.itemsList[-1]
         indexToRemove = self.itemsDict[val]
-
-        # swap val with lastElement (if not same position)
-        self.itemsList[indexToRemove] = lastElement
+        # swap lastElement and value we want to remove
+        self.itemsList[indexToRemove], self.itemsList[-1] = lastElement, self.itemsList[indexToRemove]
+        self.itemsDict[lastElement] = indexToRemove
         self.itemsList.pop()
-
         del self.itemsDict[val]
-        if val != lastElement:   # ⚡ only update if different
-            self.itemsDict[lastElement] = indexToRemove
-
         return True
-
 
     def getRandom(self) -> int:
         return random.choice(self.itemsList)
