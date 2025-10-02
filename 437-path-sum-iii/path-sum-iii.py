@@ -4,24 +4,24 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-class Solution:
-    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int:
+class Solution: 
+    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int: 
+        self.count = 0 
+        def findSum(node, curSum): 
+            if not node: 
+                return 
+            curSum += node.val 
+            if curSum == targetSum: 
+                self.count += 1 
+            findSum(node.left, curSum) 
+            findSum(node.right, curSum) 
         
-        def findSum(node, curSum):
-            if not node:
-                return 0
-            curSum += node.val
-            if curSum == targetSum:
-                count = 1
-            else:
-                count = 0
-            count += findSum(node.left, curSum)
-            count += findSum(node.right, curSum)
-            return count
-
-        if not root:
-            return 0
-
+        def dfs(node): 
+            if not node: 
+                return 
+            findSum(node, 0) 
+            dfs(node.left) 
+            dfs(node.right) 
         
-
-        return findSum(root, 0) + self.pathSum(root.left, targetSum) + self.pathSum(root.right, targetSum)
+        dfs(root)
+        return self.count
