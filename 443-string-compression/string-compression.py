@@ -1,22 +1,22 @@
 class Solution:
     def compress(self, chars: List[str]) -> int:
-        s = []
         if not chars:
-            return []
+            return chars
         group_count = 1
-        for i in range(1, len(chars)):
-            if chars[i] == chars[i - 1]:
+        index = 0
+        n = len(chars)
+        for i in range(1, n + 1):
+            if i < n and chars[i] == chars[i - 1]:
                 group_count += 1
             else:
-                s.append(chars[i - 1])
+                chars[index] = chars[i-1]
+                index += 1
                 if group_count > 1:
                     for digit in str(group_count):
-                        s.append(digit)
+                        chars[index] = digit
+                        index += 1
                 group_count = 1
-        s.append(chars[-1])
-        if group_count > 1:
-            for digit in str(group_count):
-                s.append(digit)
-        chars[:] = s
-        print(chars)
-        return len(s)
+       
+        return index
+
+
