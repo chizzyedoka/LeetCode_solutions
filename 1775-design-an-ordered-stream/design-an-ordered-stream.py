@@ -3,7 +3,7 @@ class OrderedStream:
     def __init__(self, n: int):
         self.n = n
         self.pointer = 0
-        self.data = [None] * (n+1)
+        self.data = [None] * (n)
 
     def insert(self, idKey: int, value: str) -> List[str]:
         self.data[idKey-1] = value
