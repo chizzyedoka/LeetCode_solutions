@@ -1,22 +1,25 @@
 from collections import defaultdict
-import heapq
 
 class Solution:
     def findItinerary(self, tickets: List[List[str]]) -> List[str]:
         graph = defaultdict(list)
-        
-        # use min-heap to keep lexical order without re-sorting
+
+        # Build graph
         for u, v in tickets:
-            heapq.heappush(graph[u], v)
-            
+            graph[u].append(v)
+
+        # Sort once, in reverse order, so we can pop from the end in O(1)
+        for u in graph:
+            graph[u].sort(reverse=True)
+
         result = []
 
         def dfs(node):
+            # explore while there are outgoing edges
             while graph[node]:
-                # always take the smallest lexical neighbor
-                next_node = heapq.heappop(graph[node])
+                next_node = graph[node].pop()  # O(1)
                 dfs(next_node)
             result.append(node)
-        
+
         dfs("JFK")
         return result[::-1]
