@@ -28,4 +28,21 @@ class Solution:
                 k = binary_search(nums[j+1:], target_sum)
                 ans = ans + k + 1
         return ans
+
+class Solution:
+    def triangleNumber(self, nums: List[int]) -> int:
+        ans = 0
+        n = len(nums)
+        nums.sort()
+        for k in range(n-1, 1, -1):
+            c = nums[k]
+            i, j = 0, k-1
+            while i < j:
+                a, b = nums[i], nums[j]
+                if a + b > c:
+                    ans += (j-i) # count all pairs
+                    j -= 1
+                else:
+                    i += 1
+        return ans
                 
