@@ -1,20 +1,39 @@
+# brute force -> 2**n
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
-        queue = deque([s])
-        visited = set()
+        wordDict = set(wordDict)
+    
+        def dfs(start):
+            if start == len(s):
+                return True
 
-        while queue:
-            word = queue.popleft()
-            if word in visited:
-                continue
-            else:
-                if not word:
+            for end in range(start+1, len(s)+1):
+                prefix = s[start:end]
+                if prefix in wordDict and dfs(end):
                     return True
+            return False
 
-            visited.add(word)
+        return dfs(0)
 
-            for start_word in wordDict:
-                if word.startswith(start_word):
-                    queue.append(word[len(start_word) :])
+# top-down dp
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        wordDict = set(wordDict)
+        memo = {}
+    
+        def dfs(start):
+            if start == len(s):
+                return True
+                
+            if start in memo:
+                return memo[start]
 
-        return False
+            for end in range(start+1, len(s)+1):
+                prefix = s[start:end]
+                if prefix in wordDict and dfs(end):
+                    memo[start] = True
+                    return True
+            memo[start] = False
+            return False
+
+        return dfs(0)
