@@ -1,22 +1,21 @@
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
-        wordSet = set(wordDict)
+        word_set = set(wordDict)
         memo = {}
+        results = []
 
-        def helper(index):
-            if index in memo:
-                return memo[index]
-            if index == len(s):
-                return [""]
+        def backtrack(s, word_set, current_sentence, results, start_index):
+            if start_index == len(s):
+                results.append(" ".join(current_sentence))
+                return
 
-            result = []
-            for end in range(index + 1, len(s) + 1):
-                word = s[index:end]
-                if word in wordSet:
-                    subs = helper(end)
-                    for sub in subs:
-                        result.append(word + (" " + sub if sub else ""))
-            memo[index] = result
-            return result
+            # Iterate over possible end indices
+            for end_index in range(start_index+1, len(s)+1):
+                word = s[start_index: end_index]
+                if word in word_set:
+                    current_sentence.append(word)
+                    backtrack(s, word_set, current_sentence, results, end_index)
+                    current_sentence.pop()
 
-        return helper(0)
+        backtrack(s, word_set, [], results, 0)
+        return results
