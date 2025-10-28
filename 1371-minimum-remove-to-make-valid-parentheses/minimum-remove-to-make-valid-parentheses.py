@@ -1,23 +1,26 @@
 class Solution:
     def minRemoveToMakeValid(self, s: str) -> str:
-        string_builder = []
-        result = []
-        balance = 0
-        for char in s:
+        # 1. cant start with a closed parethesis )
+        # 2. cant end with a open parenthesis (
+        # 3. number of open has to be equal to number of closed
+        
+        if not s:
+            return ""
+        s = list(s)
+        stack = [] # for storing index of open parenthesis
+
+        for i,char in enumerate(s):
             if char == "(":
-                balance += 1
-                string_builder.append(char)
-            elif char == ")" and balance > 0:
-                string_builder.append(")")
-                balance -= 1
-            elif char != ")":
-                string_builder.append(char)
+                stack.append(i)
+            elif char == ")":
+                if not stack:
+                    s[i] = ""
+                else:
+                    stack.pop()
 
-        for i in range(len(string_builder)-1, -1, -1):
-            char = string_builder[i]
-            if char == "(" and balance > 0:
-                balance -= 1
-            else:
-                result.append(char)
+        # there can be open parenthesis left without matching closed parenthesis
+        while stack:
+            position = stack.pop()
+            s[position] = ""
 
-        return "".join(result[::-1])
+        return "".join(s)
