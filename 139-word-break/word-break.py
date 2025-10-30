@@ -53,3 +53,40 @@ class Solution:
                     dp[i] = True
                     break
         return dp[n]
+
+
+# Trie
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.isEndOfWord = False
+
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        root = TrieNode()
+        for word in wordDict:
+            current_node = root
+            for char in word:
+                if char not in current_node.children:
+                    current_node.children[char] = TrieNode()
+                current_node = current_node.children[char]
+            current_node.isEndOfWord = True
+
+        n = len(s)
+        dp = [False] * (n + 1)
+        dp[0] = True
+
+        for i in range(n):
+            if not dp[i]:
+                continue
+            current_node = root
+            for j in range(i, n):
+                char = s[j]
+                if char not in current_node.children:
+                    break
+                current_node = current_node.children[char]
+                if current_node.isEndOfWord:
+                    dp[j+1] = True
+        return dp[-1]
+
+                
