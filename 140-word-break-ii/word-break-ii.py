@@ -1,21 +1,54 @@
+# brute force
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
-        word_set = set(wordDict)
-        memo = {}
-        results = []
+        wordDict = set(wordDict)
+        n = len(s)
+        result = []
 
-        def backtrack(s, word_set, current_sentence, results, start_index):
-            if start_index == len(s):
-                results.append(" ".join(current_sentence))
+        def dp(start, path): # dp(i) asks if we can split up to index i
+            # base case
+            if start == n:
+                result.append(" ".join(path))
+                return 
+
+            for end in range(start+1, n+1):
+                prefix = s[start:end]
+                if prefix in wordDict:
+                    path.append(prefix)
+                    dp(end, path)
+
+                    path.pop()
+                    
+                
+
+        dp(0, [])
+
+        return result
+
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
+        wordDict = set(wordDict)
+        n = len(s)
+        result = []
+
+        def dp(start, path, result): # dp(i) asks if we can split up to index i
+            # base case
+            if start == n:
+                sentence = " ".join(path)
+                result.append(sentence)
                 return
 
-            # Iterate over possible end indices
-            for end_index in range(start_index+1, len(s)+1):
-                word = s[start_index: end_index]
-                if word in word_set:
-                    current_sentence.append(word)
-                    backtrack(s, word_set, current_sentence, results, end_index)
-                    current_sentence.pop()
+            for end in range(start+1, n+1):
+                prefix = s[start:end]
+                if prefix in wordDict:
+                    path.append(prefix)
+                    dp(end, path, result)
 
-        backtrack(s, word_set, [], results, 0)
-        return results
+                    path.pop()
+
+                    
+                
+
+        dp(0, [], result)
+
+        return result
