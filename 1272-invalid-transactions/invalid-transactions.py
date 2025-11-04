@@ -1,31 +1,29 @@
 class Solution:
     def invalidTransactions(self, transactions: List[str]) -> List[str]:
-        entries = defaultdict(list) # { person: [time, amount, city } 
+        invalid = set()
         invalidIdx = set()
+        person_transaction_map = {}
 
-        for idx, transaction in enumerate(transactions):
-            person, time, amount, city = transaction.split(',')
-            if int(amount) > 1000:
-                invalidIdx.add(idx)
-            entries[person].append((time, amount, city, idx))
+        for  i, entry in enumerate(transactions):
+            if int(entry.split(",")[2]) > 1000:
+                invalid.add(entry)
+                invalidIdx.add(i)
 
-        # now check for trans in different cities and within 60 mins
-        for person, entry in entries.items():
-            for i in range(len(entry)):
-                time, amount, city, idx1 = entry[i]
-                for j in range(i+1,len(entry)):
-                    _time, _amount, _city, idx2 = entry[j]
-                    if city != _city and abs(int(time) - int(_time))  <= 60:
+        for i, transaction in enumerate(transactions):
+            (name, time, amount, city) = transaction.split(",")
+            if name not in person_transaction_map:
+                person_transaction_map[name] = []
+            person_transaction_map[name].append((city, int(time), amount, i))
+
+        for name, transaction in person_transaction_map.items():
+            for i in range(len(transaction)):
+                (city1,time1, amount1, idx1) = transaction[i]
+                for j in range(i+1,len(transaction)):
+                    (city2, time2, amount2, idx2) = transaction[j]
+                    if abs(time2 - time1) <= 60 and city1 != city2:
+                        invalid.add(f"{name},{time2},{amount2},{city2}")
+                        invalid.add(f"{name},{time1},{amount1},{city1}")
                         invalidIdx.add(idx1)
                         invalidIdx.add(idx2)
-        return [transactions[i] for i in list(invalidIdx)]
 
-
-
-
-
-
-
-
-
-
+        return [transactions[i] for i in invalidIdx]
