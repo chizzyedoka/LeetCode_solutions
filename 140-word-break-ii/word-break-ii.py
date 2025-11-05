@@ -25,30 +25,48 @@ class Solution:
 
         return result
 
-# class Solution:
-#     def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
-#         wordDict = set(wordDict)
-#         n = len(s)
-#         result = []
+# dp memoized
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
+        wordDict = set(wordDict)
+        n = len(s)
+        result = []
 
-#         def dp(start, path, result): # dp(i) asks if we can split up to index i
-#             # base case
-#             if start == n:
-#                 sentence = " ".join(path)
-#                 result.append(sentence)
-#                 return
+        def dp(start, path, result): # dp(i) asks if we can split up to index i
+            # base case
+            if start == n:
+                sentence = " ".join(path)
+                result.append(sentence)
+                return
 
-#             for end in range(start+1, n+1):
-#                 prefix = s[start:end]
-#                 if prefix in wordDict:
-#                     path.append(prefix)
-#                     dp(end, path, result)
+            for end in range(start+1, n+1):
+                prefix = s[start:end]
+                if prefix in wordDict:
+                    path.append(prefix)
+                    dp(end, path, result)
 
-#                     path.pop()
+                    path.pop()
 
                     
                 
 
-#         dp(0, [], result)
+        dp(0, [], result)
 
-#         return result
+        return result
+
+
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
+        wordDict = set(wordDict)
+        n = len(s)
+        dp = [[] for _ in range(n + 1)]
+        dp[0] = [""]
+
+        for i in range(1, n + 1):
+            for j in range(i):
+                prefix = s[j:i]
+                if dp[j] and prefix in wordDict:
+                    for sentence in dp[j]:
+                        dp[i].append((sentence + " " + prefix).strip())
+        return dp[n]
+
