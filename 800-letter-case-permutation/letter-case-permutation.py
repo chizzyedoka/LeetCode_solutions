@@ -1,24 +1,23 @@
 class Solution:
     def letterCasePermutation(self, s: str) -> List[str]:
         result = []
-
+        n = len(s)
+        
         def backtrack(i, solution):
-            if i == len(s):
+            if i == n:
                 result.append(solution)
-                return result
-            
+                return
+
             char = s[i]
             if not char.isdigit():
-                # pick
-                if not char.isupper():
-                    backtrack(i+1, solution + char)
-                    backtrack(i+1, solution + char.upper())
-                else:
-                    backtrack(i+1, solution + char)
-                    backtrack(i+1, solution + char.lower())
+            #pick
+                backtrack(i+1, solution[:i] + char.upper() + solution[i+1:])
+                backtrack(i+1, solution[:i] + char.lower() + solution[i+1:])
 
+            # dont pick
             else:
-                backtrack(i+1, solution + char)
+                backtrack(i+1, solution+char)
 
+        
         backtrack(0, "")
         return result
