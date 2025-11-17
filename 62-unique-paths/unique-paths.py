@@ -4,15 +4,15 @@ class Solution:
         memo = {}
         def dp(m,n):
             if m==1 and n==1:
-                return 0
+                return 1
             elif m ==1:
-                return 0
+                return 1
             elif n==1:
-                return 0
+                return 1
             if (m,n) not in memo:
                 right = dp(m,n-1)
                 down = dp(m-1, n)
-                memo[(m,n)] = 1 + right + down
+                memo[(m,n)] =  right + down
             return memo[(m,n)]
         
-        return 1+ dp(m,n)
+        return dp(m,n)
