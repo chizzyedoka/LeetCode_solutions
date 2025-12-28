@@ -4,14 +4,14 @@ class Solution:
         paths = []
 
         def dfs(node, path):
+            path.append(node)
             if node == target:
                 paths.append(list(path))
                 return
             
             for next_node in graph[node]:
-                path.append(next_node)
                 dfs(next_node, path)
                 path.pop()
 
-        dfs(source, [0])
+        dfs(source, [])
         return paths
