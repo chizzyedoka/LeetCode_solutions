@@ -2,7 +2,7 @@ class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
         rows, cols = len(grid), len(grid[0])
         LAND = "1"
-        islands = 0
+        islands = [0]
         visited = set()
         directions = [(-1,0), (1,0), (0,1), (0,-1)]
 
@@ -21,7 +21,7 @@ class Solution:
                     if row_inbounds and col_inbounds and grid[new_i][new_j]== LAND and (new_i, new_j) not in visited:
                         queue.append((new_i, new_j))
                         visited.add((new_i, new_j))
-            
+            islands[0] += 1
 
 
 
@@ -31,6 +31,5 @@ class Solution:
             for c in range(cols):
                 if grid[r][c] == LAND and (r,c) not in visited:
                     bfs(r,c)
-                    islands += 1
 
-        return islands
+        return islands[0]
