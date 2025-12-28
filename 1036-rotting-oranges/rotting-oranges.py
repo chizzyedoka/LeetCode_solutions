@@ -1,37 +1,44 @@
-from collections import deque
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
-        EMPTY, FRESH, ROTTEN = 0, 1, 2
-        m, n = len(grid), len(grid[0])
-        num_fresh = 0
-        q = deque()
-        for i in range(m):
-            for j in range(n):
-                if grid[i][j] == ROTTEN:
-                    q.append((i,j))
+        EMPTY,FRESH, ROTTEN = 0, 1, 2
+        rows, cols = len(grid), len(grid[0])
+        directions = [(0,1), (0,-1), (1,0), (-1,0)]
+        mins = -1
 
-                elif grid[i][j] == FRESH:
-                    num_fresh += 1
+        # get the number of rotten oranges and put them in a queue
+        rotten_oranges_queue = deque()
+        count_of_fresh_oranges = 0
         
-        if num_fresh == 0:
+
+        for r in range(rows):
+            for c in range(cols):
+                if grid[r][c] == FRESH:
+                    count_of_fresh_oranges += 1
+                elif grid[r][c] == ROTTEN:
+                    rotten_oranges_queue.append((r,c))
+                    
+
+        if count_of_fresh_oranges == 0:
             return 0
 
-        num_minutes = -1
-        directions = [(0,1), (0,-1), (1,0), (-1,0)]
-        while q:
-            size = len(q)
-            num_minutes += 1
+        while rotten_oranges_queue:
+            mins += 1
+            size = len(rotten_oranges_queue)
             for _ in range(size):
-                i, j = q.popleft()
-                for dr,dc in directions:
-                    r, c = dr+i, dc +j
-                    if 0 <= r < m and 0 <= c < n and grid[r][c] == FRESH:
-                        grid[r][c] = ROTTEN
-                        q.append((r,c))
-                        num_fresh -=1
-
-
-        if num_fresh == 0:
-            return num_minutes
+                i,j = rotten_oranges_queue.popleft()
+                for di,dj in directions:
+                    ni, nj = i+di, j+dj
+                    if (0 <= ni < rows) and (0 <= nj < cols) and grid[ni][nj] == FRESH:
+                        grid[ni][nj] = ROTTEN
+                        count_of_fresh_oranges -= 1
+                        rotten_oranges_queue.append((ni,nj))
+            
+                    
+        if count_of_fresh_oranges == 0:
+            return mins
+       
         return -1
+
+
+
 
