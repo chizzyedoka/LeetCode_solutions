@@ -12,8 +12,8 @@ class Solution:
         def dfs(r,c):
             row_inbounds = 0 <= r < rows
             col_inbounds = 0 <= c < cols
-            if row_inbounds and col_inbounds and grid[r][c] == LAND and (r,c) not in visited:
-                visited.add((r,c))
+            if row_inbounds and col_inbounds and grid[r][c] == LAND:
+                grid[r][c]= "0"
                 dfs(r+1, c)
                 dfs(r-1, c)
                 dfs(r, c+1)
@@ -25,7 +25,7 @@ class Solution:
 
         for r in range(rows):
             for c in range(cols):
-                if grid[r][c] == LAND and (r,c) not in visited:
+                if grid[r][c] == LAND:
                     dfs(r,c)
                     islands += 1
 
