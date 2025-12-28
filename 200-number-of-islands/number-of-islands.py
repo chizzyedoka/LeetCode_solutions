@@ -1,57 +1,35 @@
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
-        m, n = len(grid), len(grid[0])
+        rows, cols = len(grid), len(grid[0])
         LAND = "1"
-        WATER = "0"
-        count = 0
+        self.islands = 0
         visited = set()
-        
-        def explore(r,c):
-            if 0 <= r < m and 0 <= c < n and grid[r][c] == LAND and (r,c) not in visited:
-                visited.add((r,c))
-                explore(r+1, c)
-                explore(r-1, c)
-                explore(r, c+1)
-                explore(r, c-1)
-                return True
-                
-            else:
-                return False
+        directions = [(-1,0), (1,0), (0,1), (0,-1)]
 
-        
-        for r in range(m):
-            for c in range(n):
-                if grid[r][c] == LAND:
-                    if explore(r,c):
-                        count += 1
-                    
+        def bfs(r,c):
+            queue = deque()
 
-        return count
+            queue.append((r,c))
+            visited.add((r,c))
+            
+            while queue:
+                i, j = queue.popleft()
+                for di,dj in directions:
+                    new_i, new_j = i+di, j+dj
+                    row_inbounds = 0 <= new_i < rows
+                    col_inbounds = 0 <= new_j < cols
+                    if row_inbounds and col_inbounds and grid[new_i][new_j]== LAND and (new_i, new_j) not in visited:
+                        queue.append((new_i, new_j))
+                        visited.add((new_i, new_j))
+            self.islands += 1
 
 
-class Solution:
-    def numIslands(self, grid: List[List[str]]) -> int:
-        m, n = len(grid), len(grid[0])
-        seen = set()
-        q = deque()
 
-        LAND = "1"
-        directions = [(-1,0), (1,0), (0, -1), (0, 1)]
-        count = 0
 
-        for r in range(m):
-            for c in range(n):
-                if grid[r][c] == LAND and (r,c) not in seen:
-                    q.append((r,c))
-                    while q:
-                        i, j = q.popleft()
-                        seen.add((i,j))
-                        for (di, dj) in directions:
-                            new_i, new_j = i + di, j + dj
-                            if (0 <= new_i < m) and (0 <= new_j < n) and grid[new_i][new_j] == LAND and (new_i, new_j) not in seen:
-                                q.append((new_i, new_j)) 
-                                seen.add((new_i, new_j))
-                    count += 1
 
-        return count
+        for r in range(rows):
+            for c in range(cols):
+                if grid[r][c] == LAND and (r,c) not in visited:
+                    bfs(r,c)
 
+        return self.islands
