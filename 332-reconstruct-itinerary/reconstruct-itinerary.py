@@ -1,25 +1,22 @@
-from collections import defaultdict
-
 class Solution:
     def findItinerary(self, tickets: List[List[str]]) -> List[str]:
         graph = defaultdict(list)
-
-        # Build graph
-        for u, v in tickets:
-            graph[u].append(v)
-
-        # Sort once, in reverse order, so we can pop from the end in O(1)
-        for u in graph:
-            graph[u].sort(reverse=True)
-
+        n = len(tickets)
         result = []
 
+        for i in range(n):
+            fromPort, toPort = tickets[i]
+            graph[fromPort].append(toPort)
+
+        for node in graph:
+            graph[node].sort(reverse=True)
+
         def dfs(node):
-            # explore while there are outgoing edges
             while graph[node]:
-                next_node = graph[node].pop()  # O(1)
+                next_node = graph[node].pop()
                 dfs(next_node)
             result.append(node)
+
 
         dfs("JFK")
         return result[::-1]
