@@ -12,14 +12,15 @@ class Solution:
             else:
                 bool_map[0] += 1
 
-            #window = end - start + 1
-            while (end - start + 1 - max(bool_map.values()) > k ):
+            window = end - start + 1
+            while (window - max(bool_map.values()) > k ):
                 if answerKey[start] == "T":
                     bool_map[1] -= 1
                 else:
                     bool_map[0] -= 1
                 start += 1
+                window = end - start + 1
 
-            result = max(result, end - start + 1)
+            result = max(result, window)
 
         return result    
