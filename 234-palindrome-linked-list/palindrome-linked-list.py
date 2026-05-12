@@ -5,38 +5,31 @@
 #         self.next = next
 class Solution:
     def isPalindrome(self, head: Optional[ListNode]) -> bool:
-        # base case
-        if not head:
-            return True
-
-        # get the end of first half of the list
-        def first_half_end(node):
-            slow, fast = node, node
-            while fast.next and fast.next.next:
+        
+        def get_mid(node):
+            slow, fast = node, node.next
+            while fast and fast.next:
                 slow = slow.next
                 fast = fast.next.next
             return slow
 
-        # reverse second half of list
-        def reverse_ll(node):
-            #         1 -> 2 -> 3 -> null
-            # null <- 1 <- 2 <- 3
+        def reverse_linked_list(node): # 1-> 2 -> 3 -> 4
             prev = None
             cur = node
             while cur:
-                next_node = cur.next
-                cur.next = prev
+                next_node = cur.next # 3 -> 4
+                cur.next = prev # 2 -> 1 -> None
                 prev = cur
-                cur = next_node
+                cur = next_node # 2 -> 3 -> 4
             return prev
 
-        dummy_head = head
-        middle_node = first_half_end(dummy_head)
-        second_half =  reverse_ll(middle_node.next)
-        # use two pointers to check the two halves if they are palindromes
-        while second_half:
-            if head.val != second_half.val:
+        mid_node = get_mid(head)
+        reversed_mid_node = reverse_linked_list(mid_node)
+
+        cur = reversed_mid_node
+        while cur and cur.next:
+            if cur.val != head.val:
                 return False
+            cur = cur.next
             head = head.next
-            second_half = second_half.next
         return True
