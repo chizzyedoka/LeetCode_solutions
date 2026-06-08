@@ -1,17 +1,16 @@
 class Solution:
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        merged_intervals = []
+
         if not intervals:
-            return intervals
+            return merged_intervals
 
         intervals.sort()
-        result = [ [intervals[0][0], intervals[0][1] ]]
 
-        for (start, end) in intervals[1:]:
-            prev_start, prev_end = result[-1]
-
-            if prev_end >= start:
-                result[-1][1] = max(end, prev_end)
+        for (start, end) in intervals:
+            if not merged_intervals or (start > merged_intervals[-1][1]):
+                merged_intervals.append([start, end])
             else:
-                result.append([start, end])
-        return result
-
+                # change the prev end to max of the prev end and cur end
+                merged_intervals[-1][1] = max(end, merged_intervals[-1][1])
+        return merged_intervals
