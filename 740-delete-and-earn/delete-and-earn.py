@@ -18,9 +18,8 @@ class Solution:
             if i == 0:
                 return 0
             if i == 1:
-                if 1 in counter:
-                    return counter[1]
-                else: return 0
+                return counter.get(1,0)
+    
             if i not in memo:
                 memo[i] = max(dp(i-1), counter.get(i,0) + dp(i-2))
             return memo[i]
