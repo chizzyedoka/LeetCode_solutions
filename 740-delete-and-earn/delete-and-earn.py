@@ -25,3 +25,23 @@ class Solution:
             return memo[i]
 
         return dp(max_num)
+
+class Solution:
+    def deleteAndEarn(self, nums: List[int]) -> int:
+        max_num = float("-inf")
+        
+        points = {}
+        for num in nums:
+            max_num = max(max_num, num)
+            if num not in points:
+                points[num] = 0
+            points[num] += num
+
+        dp = [0] * (max_num+1)
+        dp[1] = points[1] if 1 in points else 0
+
+        for i in range(2, max_num+1):
+            dp[i] = max(points.get(i, 0) + dp[i-2], dp[i-1])
+
+        print(dp)
+        return dp[max_num]
