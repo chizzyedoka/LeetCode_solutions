@@ -38,10 +38,9 @@ class Solution:
             points[num] += num
 
         dp = [0] * (max_num+1)
-        dp[1] = points[1] if 1 in points else 0
+        dp[1] = points.get(1,0) 
 
         for i in range(2, max_num+1):
             dp[i] = max(points.get(i, 0) + dp[i-2], dp[i-1])
 
-        print(dp)
         return dp[max_num]
