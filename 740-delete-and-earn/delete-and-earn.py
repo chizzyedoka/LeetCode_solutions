@@ -44,3 +44,24 @@ class Solution:
             dp[i] = max(points.get(i, 0) + dp[i-2], dp[i-1])
 
         return dp[max_num]
+
+
+
+class Solution:
+    def deleteAndEarn(self, nums: List[int]) -> int:
+        max_num = float("-inf")
+        
+        points = {}
+        for num in nums:
+            max_num = max(max_num, num)
+            if num not in points:
+                points[num] = 0
+            points[num] += num
+
+        two_back = 0
+        one_back = points.get(1,0)
+
+        for i in range(2, max_num+1):
+            two_back, one_back = one_back, max(points.get(i,0) + two_back, one_back)
+
+        return max(one_back, two_back)
