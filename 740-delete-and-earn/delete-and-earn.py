@@ -65,3 +65,29 @@ class Solution:
             two_back, one_back = one_back, max(points.get(i,0) + two_back, one_back)
 
         return one_back
+
+
+class Solution:
+    def deleteAndEarn(self, nums: List[int]) -> int:
+        max_num = float("-inf")
+        
+        points = {}
+        for num in nums:
+            max_num = max(max_num, num)
+            if num not in points:
+                points[num] = 0
+            points[num] += num
+
+        elements = sorted(points.keys())
+        two_back = 0
+        one_back = points[elements[0]]
+
+        for i in range(1, len(elements)):
+            if elements[i] == elements[i-1] +1:
+                two_back, one_back = one_back, max(points[elements[i]] + two_back, one_back)
+            else:
+                two_back, one_back = one_back, points[elements[i]] + one_back
+
+        return one_back
+
+        
