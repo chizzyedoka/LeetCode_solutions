@@ -64,4 +64,4 @@ class Solution:
         for i in range(2, max_num+1):
             two_back, one_back = one_back, max(points.get(i,0) + two_back, one_back)
 
-        return max(one_back, two_back)
+        return one_back
