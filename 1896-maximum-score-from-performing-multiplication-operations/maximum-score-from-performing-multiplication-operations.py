@@ -34,6 +34,25 @@ class Solution:
             return memo[(i, left, right)]
 
         return dp(0,0,n-1)
-        
 
+class Solution:
+    def maximumScore(self, nums: List[int], multipliers: List[int]) -> int:
+        
+        n = len(nums)
+        m = len(multipliers)
+        mult = multipliers
+
+        memo = {}
+        # right = n - 1 - (i - left)
+
+        def dp(i, left):
+            if i == m:
+                return 0
+            if (i, left) not in memo:
+                memo[(i,left)] = max( mult[i] * nums[left] + dp(i+1, left+1), 
+                                            mult[i] * nums[n-1-(i-left)] + dp(i+1, left)  )
+                                            
+            return memo[(i, left)]
+
+        return dp(0,0,)
         
