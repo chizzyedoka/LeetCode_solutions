@@ -23,6 +23,7 @@ class Solution:
                 if neighbor not in seen:
                     if dfs(neighbor, target):
                         return True
+            return False
         
         if dfs(source, destination):
             return True
