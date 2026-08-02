@@ -24,8 +24,6 @@ class Solution:
                     if dfs(neighbor, target):
                         return True
         
-        for node in graph:
-            if node == source:
-                if dfs(node, destination):
-                    return True
+        if dfs(source, destination):
+            return True
         return False
