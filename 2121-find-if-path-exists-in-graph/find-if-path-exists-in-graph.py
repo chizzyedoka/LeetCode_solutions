@@ -25,6 +25,5 @@ class Solution:
                         return True
             return False
         
-        if dfs(source, destination):
-            return True
-        return False
+        return dfs(source, destination)
+            
