@@ -1,22 +1,28 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        brackets = {
-            '(' : ')',
-            '{' : '}', 
-            '[' : ']'
+        # ([)]
+        # [ ([  )]  ]
+        # HAVE a stack
+        # loop through the string
+        # has long as we have an open paranthesis, put in the stack
+        # when we have a closed parenthesis, if the top of the stack is not a match return false
+        # if we get to the end of the loop, return true
+        if not s:
+            return True
+        stack = []
+        parenthesis = {
+            '(':')',
+            '[':']',
+            '{':'}'
         }
-        stack = [] # 
-
-        for char in s:
-            if char not in brackets and char not in brackets.values():
-                return False
-            if char in brackets:
-                stack.append(char)
+        for i in s:
+            if i in parenthesis:
+                stack.append(i)
             else:
                 if not stack:
                     return False
-                elif brackets[stack[-1]] != char:
-                    return False
-                stack.pop()
-        return len(stack) == 0 
-            
+                if stack:
+                    top = stack.pop()
+                    if parenthesis[top] != i:
+                        return False
+        return len(stack) == 0
