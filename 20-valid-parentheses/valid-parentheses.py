@@ -11,18 +11,33 @@ class Solution:
             return True
         stack = []
         parenthesis = {
-            '(':')',
-            '[':']',
-            '{':'}'
+            ')':'(',
+            ']':'[',
+            '}':'{'
         }
-        for i in s:
-            if i in parenthesis:
-                stack.append(i)
-            else:
-                if not stack:
+
+        for char in s:
+            if char in parenthesis:
+                if stack and stack[-1] == parenthesis[char]:
+                    stack.pop()
+                else:
                     return False
-                if stack:
-                    top = stack.pop()
-                    if parenthesis[top] != i:
-                        return False
+            else:
+                stack.append(char)
         return len(stack) == 0
+
+
+
+
+
+        # for i in s:
+        #     if i in parenthesis:
+        #         stack.append(i)
+        #     else:
+        #         if not stack:
+        #             return False
+        #         if stack:
+        #             top = stack.pop()
+        #             if parenthesis[top] != i:
+        #                 return False
+        # return len(stack) == 0
