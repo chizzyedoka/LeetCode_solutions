@@ -12,6 +12,5 @@ class Solution(object):
             else:
                 digits[i] += 1
                 return digits
-        digits.insert(0, 1)
-        return digits
+        return [1] + digits
         
