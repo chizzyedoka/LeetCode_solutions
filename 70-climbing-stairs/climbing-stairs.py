@@ -1,27 +1,43 @@
-class Solution:
-    def climbStairs(self, n: int) -> int:
-        # you can get to step 5 by either climbing 1 step from step 4 or 2 steps from step 3
-        if n <= 2:
-            return n
-        dp = [0] * (n+1)
-        dp[1] = 1
-        dp[2] = 2
+class Solution(object):
+    def climbStairs(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        """
+        if n=1, we can climb in one distinct way
+        if n=2, we can climb in 2 distinct way -> take 1 step twice or take 2 steps once
+        if n=3, we can take 1step three times till we get to the top,
+                or take 1step first then 2step later,
+                or take 2steps first then 1step later
+                that's 3 distinct ways
+        if n=4, we can take 1 step till we get to the top,
+                1 step two times, 2 step once
+                1 step, 2 step, 1step
+                2 step twice
+                2 step, 1step twice
 
-        for i in range(3, n+1):
-            dp[i] = dp[i-1] + dp[i-2]
-        return dp[n]
-
-class Solution:
-    def climbStairs(self, n: int) -> int:
-        memo = {0:0, 1:1, 2:2}
-        
-        def dp(i):
-            if i <= 2:
-                return i
-            if i not in memo:
-                memo[i] = dp(i-1) + dp(i-2)
-            return memo[i]
-
+        if n=5, 1step each till the top
+                1step 3 times, 2step once
+                1step 2 times, 2step once, 1 step
+                1 step 1 time, 2 step once, 1step, 1step
+                1 step 1 time, 2 step once, 2 step once
+                2 step twice, 1step
+                2 step once, 1step, 1step, 1syep
+        n=1-> 1
+        n=2 -> 2
+        n=3 -> 3
+        n=4 -> 5
+        n=5 -> 8
+        """
+        memo = {}
+        def dp(n):
+            if n<=2:
+                return n
+            if n not in memo:
+                memo[n] = dp(n-1) + dp(n-2)
+            return memo[n]
         return dp(n)
-        
+
+
         
