@@ -14,7 +14,7 @@ class Solution(object):
             return []
 
         queue = deque([root])
-        result = deque()
+        result = []
 
         while queue:
             size = len(queue)
@@ -26,7 +26,7 @@ class Solution(object):
                     queue.append(node.left)
                 if node.right:
                     queue.append(node.right)
-            result.appendleft(level)
-        return list(result)
+            result = [level] + result
+        return result
 
         
