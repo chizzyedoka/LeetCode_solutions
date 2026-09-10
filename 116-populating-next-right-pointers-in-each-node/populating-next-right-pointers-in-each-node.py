@@ -12,17 +12,21 @@ class Solution:
     def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
         if not root:
             return None
+            
+        queue = deque([root])
 
-        q = deque([root])
-
-        while q:
-            levelSize = len(q)
-            for i in range(levelSize):
-                node = q.popleft()
-                if i < levelSize - 1:  # Only connect nodes in the same level
-                    node.next = q[0]
+        while queue:
+            size = len(queue)
+            previous = None
+            for _ in range(size):
+                node = queue.popleft()
+                if previous:
+                    previous.next = node
                 if node.left:
-                    q.append(node.left)
+                    queue.append(node.left)
                 if node.right:
-                    q.append(node.right)
+                    queue.append(node.right)
+                previous = node
+                
         return root
+        
